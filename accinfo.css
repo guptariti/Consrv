@@ -1,0 +1,78 @@
+#acctinfo {
+	display:grid;
+	grid-template-areas: 
+	'left-spacer header right-spacer'
+	'left-spacer username right-spacer'
+	'left-spacer points right-spacer'
+	'left-spacer email right-spacer';
+	/*grid-row-gap: 10px;*/
+	background:var(--light-bg-color);
+	height: 100vh;
+	width:100vw;
+	grid-template-columns:  40vw 20vw 40vw;
+	grid-template-rows:20vh auto auto auto;
+	/*padding: 2vh;*/
+}
+
+
+#head {
+	display:flex;
+	align-items: center;
+	grid-area: header;
+	text-align:center;
+	justify-content: center;
+	background:var(--dark-bg-color);
+	padding:30px;
+	border-top: 30px solid var(--light-bg-color);;
+	border-bottom: 30px solid var(--light-bg-color);
+}
+#left {
+	grid-area: left-spacer;
+	/*background:var(--light-bg-color);*/
+}
+
+#right {
+	grid-area: right-spacer;
+	/*background:var(--light-bg-color);*/
+}
+
+#acctinfo > div {
+	color:white;
+	/*padding:10px;*/
+	
+}
+
+#usernameDiv {
+	text-align:center;
+	/*border-radius:10px;*/
+	background:var(--dark-bg-color);
+	grid-area:username;
+	border-bottom:40px solid var(--light-bg-color);
+}
+
+#pointsDiv {
+	text-align:center;
+	/*border-radius:10px;*/
+	background:var(--dark-bg-color);
+	grid-area:points;
+	border-bottom:40px solid var(--light-bg-color);
+}
+
+#emailDiv {
+	text-align:center;
+	/*border-radius:10px;*/
+	background:var(--dark-bg-color);
+	grid-area:email;
+	border-bottom:40px solid var(--light-bg-color);
+}
+#left, #right {
+	background:var(--darker-bg-color);
+	border-radius:none;
+}
+#profilePic {
+
+	/*border-radius:10px;*/
+	background:var(--dark-bg-color);
+	grid-area:prof-pic;
+}
+

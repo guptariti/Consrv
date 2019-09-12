@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='register.js'></script>
+	<link rel = "stylesheet" href="main.css">
+</head>
+<body>
+	<style>
+		body {
+			background-color:rgb(190,210,255);
+			font-family:'Ubuntu',sans-serif;
+			text-align:center;
+			color:white;
+		}
+
+		h1 {
+			color:white;
+		}
+
+		#submit {
+			color:white;
+			text-align:center;
+			border-radius: 25px;
+			border:none;
+			background-color: var(--darkish-bg-color);
+			margin: auto;
+			padding:20px;
+			width:200px;
+			position:absolute;
+			font-size:1.2em;
+			top:65%;
+			left:50%;
+			transform: translateX(-50%);
+			-webkit-transform: translateX(-50%);
+		}
+
+		#compass {
+			position:absolute;
+			background-color: rgba(0,0,0,0.2);
+			text-align:center;
+			width:400px;
+			height:350px;
+			left:35%;
+			top:10%;
+		}
+
+		#login-info {
+			/*border:1px solid black;*/
+		}
+
+		#login-info  td {
+			padding:3px;
+		}
+	</style>
+	<div id=compass>
+	<h1>Register New User </h1>
+	<div style = "display:flex; flex-direction:column; align-items: center">
+	<table id = "login-info">
+	<tr>
+		<td>Email Address: </td>
+		<td><input type="text" id="email"></td>
+	</tr>
+	<tr>
+		<td>Username: </td>
+		<td><input type="text" id="username"></td>
+	</tr>
+	<tr>
+		<td>Password: </td> 
+		<td><input type="password" id="password"></td>
+	</tr>
+	<tr>
+		<td>Check Password: </td>
+		<td><input type="password" id="checkpassword"></td>
+	</tr>
+</table>
+</div>
+	<button id="submit">Submit</button>		
+	</div>
+	<script>
+	</script>
+</body>
+</html>

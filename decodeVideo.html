@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel = "stylesheet" href = "main.css">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel = "stylesheet" href = "main.css">
+        <!--    <link rel = "stylesheet" href = "decodeVideo.css"> -->
+    </head>
+    <style>
+        body {
+            font-family: 'Ubuntu';
+            background-color:rgb(190,210,255);
+            color:white;
+        }
+        h1 {
+            text-align:center;
+        }
+
+        #btn-startReadVideo {
+            position: relative;
+            text-align:center;
+            border-radius: 10px;
+            background-color: var(--dark-bg-color);
+            margin-top: 60px;
+            padding:20px;
+            width:200px;
+            position:absolute;
+            font-size:1.2em;
+            left:50%;
+            top: 75%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            color:white;
+            border:none;
+        }
+
+        #btn-stopReadVideo {
+            text-align:center;
+            border-radius: 10px;
+            background-color: var(--dark-bg-color);
+            margin-top: 60px;
+            padding:20px;
+            width:200px;
+            position:absolute;
+            font-size:1.2em;
+            left:50%;
+            top: 75%;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+            border:none;
+            color:white;
+        }
+
+        #pointsDisplay {
+            display:none;
+            padding:5px;
+            position: absolute;
+            background-color: var(--dark-bg-color);
+            z-index: 1;
+            top:40%;
+            text-align:center;
+        }
+
+        #theVideo {
+            z-index: 0;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark-bg-color);
+            z-index:100;
+            padding:5px;
+        }
+
+        #cover {
+            position:absolute;
+            z-index:100;
+            background:black;
+            right:0%;
+        }
+
+        #scanHeader {
+            flex-grow:1;
+        }
+/* #theVideo {
+    position: absolute;
+    top:30%;
+    } */
+</style>
+<body>
+    <div id = "header"><h1>Consrv</h1><h1 id = "scanHeader">Scan Barcode</h1></div>
+    <br>
+    <div id = "pointsDisplay">
+        <p id = "points"></p>
+        <button id = "hidePoints">OK</button>
+    </div>
+    <div id="divLoading"></div>
+    <!-- <div id="divReading" style="display:none">Reading...</div> -->
+    <button id="btn-startReadVideo" disabled style = "font-family: 'Ubuntu'">Start Scan</button>
+    <button id="btn-stopReadVideo" style="display:none;font-family: 'Ubuntu'">Stop Scan</button>
+    <div id="divVideoContainer" style="max-width:65%;left:25%;position:relative;">
+        <video id="theVideo" style="width:80%;height:80%;left:50%;" playsinline="true"></video>
+        <!-- <div id="divVideoRegion" style="position:absolute;margin:auto;left:25%;top:0;right:0;bottom:0;width:80%;height:80%;border:3px solid #50A8E1;"></div> -->
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- optional, a log tool -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
+
+    <!-- https://github.com/webrtc/adapter -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
+
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.0.2.min.js"></script>
+
+    <script>
+        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+
+        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAB3C9GMaCKDGeKlg/ZA775l0NYSHilRwlGLe9cqw5Te8eXVvaS3t6waUJOmySOXB17GMDEDWDocsTqnfCD3X3EM=";
+
+        dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
+        
+        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+            playvideo();
+            //$('#divLoading').text('load dbr worker success');
+        };
+        dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
+            //kConsoleLog(ex);
+            //$('#divLoading').text('load dbr worker fail: '+(ex.message || ex));
+        };
+
+        function sendData(data) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "decodeVideo.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            ////alert("curtis");
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                  displayPoints(this.responseText);
+              }
+          };
+          var queryString = "ean=" + data;
+            //alert(queryString);
+            xhr.send(queryString);
+        //
+    }
+    var counter = 0;
+    function displayPoints(score) {
+        var div = document.getElementById("pointsDisplay");
+        
+        if(score.includes("Notice")) {
+            counter++;
+            if (counter>20) {
+                div.style.display = "block";
+                document.getElementById("points").innerHTML = "This product is not certified eco-friendly by the B Corp";
+                counter = 0;
+            }
+        } else if(score == 0) {
+            div.style.display = "block";
+            document.getElementById("points").innerHTML = "This product is not certified eco-friendly by the B Corp";
+            counter = 0;
+        } else {
+            div.style.display = "block";
+           document.getElementById("points").innerHTML = "Congratulations, you earned " + score + " points for this eco-friendly item!";
+           counter = 0;
+       }
+       div.style.left = (window.innerWidth-div.clientWidth)/2 +"px";
+       document.getElementById("hidePoints").onclick = function() {
+        div.style.display = "none";
+    }
+
+}
+
+var playvideo = ()=>{
+            //kConsoleLog('======before video========');
+            navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: { ideal: 'environment' } } }).then((stream)=>{
+                //kConsoleLog('======get video========');
+                var video = $('#theVideo')[0];
+                video.srcObject = stream;
+                video.onloadedmetadata = ()=>{
+                    //kConsoleLog('======play video========');
+                    video.play();
+                    //kConsoleLog('======played video========');
+
+                    $('#btn-startReadVideo').removeAttr('disabled');
+                };
+            }).catch((ex)=>{
+                //kConsoleLog(ex);
+                //alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
+            });
+        };
+        
+        $('#btn-startReadVideo').click(()=>{
+            $('#divReading').show();
+            $('#btn-startReadVideo').hide();
+            $('#btn-stopReadVideo').show();
+            isLooping = true;
+            //$('#kConsoleShowHideBtn').click();
+            loopReadVideo();
+        });
+        $('#btn-stopReadVideo').click(()=>{
+            $('#btn-stopReadVideo').hide();
+            $('#btn-startReadVideo').show();
+            isLooping = false;
+            $('#divReading').hide();
+        });
+
+        var isLooping = false;
+        
+        var loopReadVideo = function(){
+            if(!isLooping){
+                return;
+            }
+            //kConsoleLog('======= once read =======')
+            var timestart = (new Date()).getTime();
+
+            var reader = new dynamsoft.BarcodeReader();
+            reader.decodeFileInMemory($('#theVideo')[0]).then(results=>{
+                //kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
+                for(var i=0;i<results.length;++i){
+                    var result = results[i];
+                    //kConsoleLog(result.BarcodeText);
+                    ////alert(result.BarcodeText);
+                    if(result.BarcodeText.length == 12) {
+                        ////alert(result.BarcodeText);
+                        sendData(result.BarcodeText);
+                    }
+                }
+                setTimeout(loopReadVideo, 0);
+                return reader.deleteInstance();
+            }).catch(ex=>{
+                //kConsoleError(ex.message || ex);
+                setTimeout(loopReadVideo, 0);
+                reader.deleteInstance();
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+
+/*Cyan: #01BAEF
+Malachite: #20BF55
+Ghost White: #FBFBFF
+Sonic Silver: #757575
+Dark Imperial Blue: #0B4F6C*/
+
+:root {
+	font-family: "Ubuntu";
+	--blue:#4a66c9;
+	--dark-bg-color: rgba(0, 0, 0, .1);
+	--darkish-bg-color: rgba(0,0,0,.2);
+	--darker-bg-color: rgba(0,0,0,.3);
+	--light-bg-color: rgb(190,210,255);
+	/*--light-bg-color-transparent: rgba(251,251,255,.8);*/
+	--yellow:rgb(234, 255, 109);
+}
+
+body {
+	margin:0;
+}
+
+a {
+	text-decoration: none;
+	color:inherit;
+}
+
+.vertical-center {
+	display:flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	/*align-content: center;
+	align-items: center;*/
+}

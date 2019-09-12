@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+	<script src="TrackProgress.js"></script>
+</head>
+<body>
+	<style>
+	body {
+		background-color:rgb(190,210,255);
+		color:white;
+	}
+	h1 {
+		text-align:center;
+		font-family:'Ubuntu', sans-serif;
+		color:white;
+	}
+
+	span {
+		color:white;
+	}
+	#btncontain {
+		text-align: center;
+		/*display:flex;*/
+		/*display:inline-block;
+		margin:center;*/
+		/*border:1px solid black;*/
+	}
+	.options {
+		border-radius: 100px;
+		background-color: rgba(0,0,0,0.1);
+		position:relative;
+		padding:20px;
+		width:150px;
+		font-family: 'Ubuntu', sans-serif;
+		font-size:1.2em;
+		color:white;
+		cursor: pointer;
+	}
+
+	
+	.enter {
+		display:none;
+		font-family: 'Ubuntu', sans-serif;
+		border-color:rgb(234,255,109);
+		background-color:transparent;
+		/*position:absolute;*/
+		/*background-color:rgb(234,255,109);*/
+		/*display:inline-block;*/
+	}
+
+	.subdiv {
+		display: flex;
+		flex-direction: column;
+		align-items:center;
+		text-align: center;
+		/*border:2px solid lightyellow;*/
+		width:250px;
+		/*height:50vh;*/
+	}
+
+	.row {
+		position:absolute;
+		display:flex;
+		align-items: flex-start;
+		justify-content: center;
+	}
+
+
+	#row1 {
+		top:15%;
+	}
+
+	#row2 {
+		top:72%;
+	}
+
+	.timer {
+		border-radius: 100px;
+		border:none;
+		background-color: rgba(0,0,0,0.12);
+		position:relative;
+		padding:10px;
+		width:100px;
+		font-family: 'Ubuntu', sans-serif;
+		font-size:0.8em;
+		color:white;
+		cursor: pointer;
+	}
+
+	.calculate {
+		visibility: hidden;
+		text-align: center;
+		border-radius: 100px;
+		background-color: rgba(0,0,0,0.1);
+		position:relative;
+		padding:10px;
+		width:100px;
+		font-family: 'Ubuntu', sans-serif;
+		font-size:0.8em;
+		color:white;
+		cursor: pointer;
+
+
+</style>
+<h1>Track Usage</h1>
+<div id="btncontain">
+	<div class = "row" id = "row1">
+		<div class="subdiv">
+			<div class ="options">Lights</div>
+			<div class = "enter" id="1">
+				<br>
+				<span>Target Min: </span><input type="number" id="myText1" value="">
+				<br>
+				<br>
+				<span># of Lights: </span><input type="number" id="myTextl" value="">
+				<br>
+				<br>
+				<button class="timer" id= "lights">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "lightsPoints"></p>
+			</div>
+			
+		</div>
+
+		<div class="subdiv">
+			<div class ="options">Driving</div>
+			<div class = "enter" id="2">
+				<br>
+				<span>Target Miles: </span><input type="number" id="myText2" value="">
+				<br>
+				<br>
+				<span>Actual Miles: </span><input type="number" id="myText21" value="">
+				<br>
+				<br>
+				<button class="timer" id= "driving">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "2Points"></p>
+			</div>
+		</div>
+
+		<div class="subdiv">
+			<div class ="options">Computer</div>
+			<div class = "enter" id="3">
+				<br>
+				<span>Target Min: </span><input type="number" id="myText3" value="">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<button class="timer" id= "computer">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "3Points"></p>
+			</div>
+		</div>
+
+		<div class="subdiv">
+			<div class ="options">TV/Console</div>
+			<div class = "enter" id="4">
+				<br>
+				<span>Target Min: </span><input type="number" id="myText4" value="">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<button class="timer" id= "tv/console">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "4Points"></p>
+			</div>
+		</div>
+
+		<div class="subdiv">
+			<div class ="options">A/C</div>
+			<div class = "enter" id="5">
+				<br>
+				<span>Target Min: </span><input type="number" id="myText5" value="">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<button class="timer" id= "a/c">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "5Points"></p>
+			</div>
+		</div>
+	</div>
+	<div class = "row" id="row2">
+		<div class="subdiv">
+			<div class ="options">Heater</div>
+			<div class = "enter" id="6">
+				<br>
+				<span>Target Min: </span><input type="number" id="myText6" value="">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<button class="timer" id= "heater">Start Timer</button>
+				<p class="counter"></p>
+				<!-- <button class="calculate">Calculate Points</button> -->
+				<p id = "6Points"></p>
+			</div>
+		</div>
+			<div class="subdiv">
+				<div class ="options">Microwave</div>
+				<div class = "enter" id="7">
+					<br>
+					<span>Target Min: </span><input type="number" id="myText7" value="">
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<button class="timer" id= "microwave">Start Timer</button>
+					<p class="counter"></p>
+					<!-- <button class="calculate">Calculate Points</button> -->
+					<p id = "7Points"></p>
+				</div>
+			</div>
+				<div class="subdiv">
+					<div class ="options">Oven</div>
+					<div class = "enter" id="8">
+						<br>
+						<span>Target Min: </span><input type="number" id="myText8" value="">
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<button class="timer" id= "oven">Start Timer</button>
+						<p class="counter"></p>
+						<!-- <button class="calculate">Calculate Points</button> -->
+						<p id = "8Points"></p>
+					</div>
+				</div>
+					<div class="subdiv">
+						<div class ="options">Laundry</div>
+						<div class = "enter" id="9">
+							<br>
+							<span>Target Min: </span><input type="number" id="myText9" value="">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							<button class="timer" id= "laundry">Start Timer</button>
+							<p class="counter"></p>
+							<!-- <button class="calculate">Calculate Points</button> -->
+							<p id = "9Points"></p>
+						</div>
+					</div>
+						<div class="subdiv">
+							<div class ="options">Dishwasher</div>
+							<div class = "enter" id="10">
+								<br>
+								<span>Target Min: </span><input type="number" id="myText10" value="">
+								<br>
+								<br>
+								<br>
+								<br>
+								<br>
+								<button class="timer" id= "dishwasher">Start Timer</button>
+								<p class="counter"></p>
+								<!-- <button class="calculate">Calculate Points</button> -->
+								<p id = "10Points"></p>
+							</div>
+						</div>
+					</div>
+					<div id="enter">
+
+					</div>
+
+
+
+				</body>
+				</html>

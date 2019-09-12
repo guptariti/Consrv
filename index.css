@@ -1,0 +1,159 @@
+#landing-page-grid {
+	display: grid;
+	grid-template-areas: 
+	"main-left main-right";
+	/*"footer footer";*/
+	grid-template-rows: 100vh;
+	grid-template-columns: 75% 25%;
+	grid-gap: 0;
+  color:white;
+	background-color: var(--light-bg-color);
+}
+
+#landing-page-grid > div {
+	/*border:1px solid white;*/
+	/*padding: 20px;*/
+	margin:0;
+}
+#main-left {
+	padding:20px;
+	grid-area: main-left;
+	position: relative;
+	/*font-size: 2em;*/
+	color: white;
+}
+
+#main-left p {
+	font-size: 2em;
+}
+
+#main-header {
+	font-size: 3em;
+}
+
+#about-us {
+  text-align:center;
+  cursor:pointer;
+  border-radius: 25px;
+  background-color: var(--dark-bg-color);
+  margin: auto;
+  padding:20px;
+  width:200px;
+  position:absolute;
+  font-size:1.2em;
+    left:50%;
+    color:white;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+#login-info {
+  text-align: center;
+	border:1px solid black;
+	margin:0px;
+	height:100%;
+}
+
+#login-info * {
+	/*size: 2em;*/
+}
+
+#submit {
+  color:white;
+	text-align:center;
+  border-radius: 25px;
+  cursor: pointer;
+  /*border:1px solid black;*/
+  background-color: var(--light-bg-color);
+  margin: auto;
+  padding:20px;
+  width:200px;
+  position:absolute;
+  font-size:1.2em;
+  border:none;
+  font-family: "Ubuntu";
+    top:50%;
+    left:50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+#main-right {
+  position:relative;
+	grid-area: main-right;
+	padding:0;
+	text-align:center;
+	background-color: var(--blue);
+	border-radius:0 0 0 10px;
+}
+
+/*#main-right>* {
+	opacity:1;
+}*/
+#footer {
+	grid-area: footer;
+}
+
+#earth {
+  /* [1] Allow it to contain the absolutely positions pseudo-elements (later-on) */
+  position: relative;
+
+  /* [2] Set-up the dimensions and spacing */
+  width: 300px;
+  height: 300px;
+  margin: 3em auto;
+
+  /* [3] Prepare the animation effects */
+  transition: transform 200ms linear;
+  animation: rotate 4s linear infinite; /* This is going to be defined in the next step */
+
+  /* [4] Tweak the appearance, and give it a nice background i.e. the world map */
+  color: #000;
+  border-radius: 50%;
+  background: url(world-map-image.jpg) 0 0 repeat / 630px;
+  box-shadow: inset 20px 0 80px 6px rgba(0, 0, 0, 1);
+
+  /* [5] Position things in a 3d space */
+  transform-style: preserve-3d;
+}
+
+#earth:after {
+  /* [1] Break the flow to show this as an overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* [2] Make it take all the space available in the box (ahem... globe!) */
+  width: 100%;
+  height: 100%;
+
+  /* [3] Make sure this has no generated content, as we want this just for fancy purposes */
+  content: '';
+
+  /* [4] Give it some shape and shadow */
+  border-radius: 50%;
+  box-shadow: -80px 15px 80px 10px rgba(0,0,0,.9) inset;
+} 
+
+#earth:before {
+  /* [1] Again, break the flow to show this as an overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  /* [2] Again, give it all the available space */
+  width: 100%;
+  height: 100%;
+
+  /* [3] Duh. */
+  content: '';
+
+  /* [4] Add some shape and overlay effect to it */
+  opacity: .2;
+  border-radius: 50%;
+  background: radial-gradient(circle at 100px 100px, #fff, #000);
+}
+
+@keyframes rotate {
+  0% {background-position: 0 0;}
+  100% {background-position: 630px 0;}
+}
